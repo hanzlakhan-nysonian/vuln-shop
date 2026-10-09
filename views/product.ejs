@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head><title><%- product.name %> - ShopKart</title></head>
+<body>
+  <h1><%- product.name %></h1>
+  <div><%- product.descriptionHtml %></div>
+  <p>Price: $<%= product.price %></p>
+
+  <form action="/cart/add" method="post">
+    <input type="hidden" name="productId" value="<%= product.id %>">
+    <input type="hidden" name="name" value="<%= product.name %>">
+    <input type="hidden" name="price" value="<%= product.price %>">
+    <input name="quantity" value="1">
+    <button>Add to cart</button>
+  </form>
+
+  <h2>Reviews</h2>
+  <% reviews.forEach(function (r) { %>
+    <div class="review"><%- r.comment %> (<%= r.rating %>/5)</div>
+  <% }) %>
+
+  <form action="/products/<%= product.id %>/reviews" method="post">
+    <textarea name="comment"></textarea>
+    <input name="rating" type="number">
+    <button>Post review</button>
+  </form>
+</body>
+</html>

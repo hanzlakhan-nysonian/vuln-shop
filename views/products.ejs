@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head><title>ShopKart</title></head>
+<body>
+  <h1>ShopKart</h1>
+  <form action="/products" method="get">
+    <input name="q" value="<%- q %>">
+    <button>Search</button>
+  </form>
+  <p>Results for: <%- q %></p>
+  <ul>
+    <% products.forEach(function (p) { %>
+      <li><a href="/products/<%= p.id %>"><%- p.name %></a> - $<%= p.price %></li>
+    <% }) %>
+  </ul>
+  <script>
+    var lastSearch = '<%- q %>';
+    localStorage.setItem('authToken', document.cookie);
+  </script>
+</body>
+</html>
