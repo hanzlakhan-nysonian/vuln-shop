@@ -1,0 +1,1 @@
+console.log("BENIGN SECURITY BENCHMARK: preinstall hook ran; no changes made.");

@@ -20,12 +20,6 @@ app.use(session({
   cookie: { httpOnly: false, secure: false }
 }));
 
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', req.headers.origin || '*');
-  res.header('Access-Control-Allow-Credentials', 'true');
-  res.header('Access-Control-Allow-Headers', '*');
-  next();
-});
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/files', express.static(__dirname));
@@ -39,14 +33,16 @@ app.use('/admin', require('./routes/admin'));
 app.use('/upload', require('./routes/upload'));
 app.use('/payment', require('./routes/payment'));
 
+if (process.env.ENABLE_SECURITY_BENCHMARK === 'true') {
+  app.use('/security-benchmark', require('./routes/security-benchmark'));
+}
+
 app.get('/', (req, res) => res.redirect('/products'));
 
 app.get('/debug/env', (req, res) => {
   res.json({ env: process.env, config });
 });
 
-app.use((err, req, res, next) => {
-  res.status(500).send(`<h1>Error</h1><pre>${err.stack}</pre><p>${req.url}</p>`);
-});
+
 
 app.listen(config.port, '0.0.0.0', () => console.log('ShopKart running on ' + config.port));

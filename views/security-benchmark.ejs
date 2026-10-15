@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head><title>Security Benchmark</title></head>
+<body>
+  <h1>Local Security Benchmark</h1>
+  <p>This page is opt-in and loopback-only. Its source examples are inert text.</p>
+
+  <form action="/security-benchmark" method="get">
+    <label>Query sample <input name="id" value="<%= queryPreview %>"></label>
+    <label>Reflected message <input name="message" value="<%= message %>"></label>
+    <button type="submit">Render sample</button>
+  </form>
+
+  <h2>SQL query preview</h2>
+  <pre><%= queryPreview %></pre>
+
+  <h2>Reflected output sample</h2>
+  <div><%- message %></div>
+
+  <h2>Static source samples</h2>
+  <% sourceSamples.forEach(function (sample) { %>
+    <section>
+      <h3><%= sample.name %></h3>
+      <pre><code><%= sample.source %></code></pre>
+    </section>
+  <% }); %>
+</body>
+</html>
